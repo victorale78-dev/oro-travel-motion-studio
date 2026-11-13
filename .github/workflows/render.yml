@@ -24,14 +24,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate media assets
-        run: |
-          for file in granada.jpg ometepe.jpg corn-islands.jpg san-juan.jpg; do
-            if [ ! -s "public/images/$file" ]; then
-              echo "::error::Missing public/images/$file. Add the actual destination photo before rendering."
-              exit 1
-            fi
-          done
+      - name: Download destination photos with attribution
+        run: python3 scripts/fetch_images.py
       - name: Install dependencies
         run: npm install --no-audit --no-fund
       - name: Install Chrome for Remotion
